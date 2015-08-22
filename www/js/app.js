@@ -29,13 +29,13 @@
 
       data.items = [
           {
-              title: 'Item 1 Title',
-              label: '4h',
+              title: 'CODATA Fundamental Physical Constants',
+              label: 'SRD 121',
               desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
           },
           {
-              title: 'Another Item Title',
-              label: '6h',
+              title: 'Ground Levels and Ionization Energies for the Neutral Atoms',
+              label: 'SRD 111',
               desc: 'Ut enim ad minim veniam.'
           },
           {
