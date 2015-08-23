@@ -1,0 +1,45 @@
+<ons-page ng-controller="DetailController">
+
+    <ons-toolbar>
+        <div class="left"><ons-back-button>Back</ons-back-button></div>
+        <div class="center">Details</div>
+    </ons-toolbar>
+
+    <ons-list modifier="inset" style="margin-top: 10px">
+        <ons-list-item class="item">
+            <ons-row>
+                <ons-col width="60px">
+                    <div class="item-thum"></div>
+                </ons-col>
+                <ons-col>
+                    <header>
+                        <span class="item-title">{{item.title}}</span>
+                        <span class="item-label">{{item.label}}</span>
+                    </header>
+                    <p class="item-desc">{{item.desc}}</p>
+                </ons-col>
+            </ons-row>
+        </ons-list-item>
+
+        <ons-list-item modifier="chevron" ng-click="doSomething()">
+            <ons-icon icon="ion-chatboxes" fixed-width="true" style="color: #ccc"></ons-icon>
+            Add a note
+        </ons-list-item>
+    </ons-list>
+
+    <ons-list style="margin-top: 10px">
+        <ons-list-item class="item" ng-repeat="row in srd.constant">
+            <header>
+                <span class="item-title">{{row['Quantity ']}}</span>
+            </header>
+            <p class="item-desc">
+              {{row['Value']}}
+              <strong>&plusmn;</strong> {{row.Uncertainty}}
+              <strong><em>{{row.Unit}}</em></strong>
+            </p>
+        </ons-list-item>
+    </ons-list>
+
+    <br>
+
+</ons-page>

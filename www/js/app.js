@@ -1,5 +1,7 @@
 (function(){
   'use strict';
+
+  // Initialize app
   var module = angular.module('app', ['onsen']);
 
   module.controller('AppController', function($scope, $data) {
@@ -12,6 +14,30 @@
 
   module.controller('DetailController', function($scope, $data) {
     $scope.item = $data.selectedItem;
+
+    $scope.srd = {
+      "constant": [
+        {
+          "Quantity ": "{220} lattice spacing of silicon",
+          "Value": "192.015 5714 e-12",
+          "Uncertainty": "0.000 0032 e-12",
+          "Unit": "m"
+        },
+        {
+          "Quantity ": "alpha particle-electron mass ratio",
+          "Value": "7294.299 541 36",
+          "Uncertainty": "0.000 000 24",
+          "Unit": ""
+        },
+        {
+          "Quantity ": "alpha particle mass",
+          "Value": "6.644 657 230 e-27",
+          "Uncertainty": "0.000 000 082 e-27",
+          "Unit": "kg"
+        }
+      ]
+    };
+
   });
 
   module.controller('MasterController', function($scope, $data) {
@@ -20,7 +46,7 @@
     $scope.showDetail = function(index) {
       var selectedItem = $data.items[index];
       $data.selectedItem = selectedItem;
-      $scope.navi.pushPage('detail.html', {title : selectedItem.title});
+      $scope.navi.pushPage('srd/121.html', {title : selectedItem.title});
     };
   });
 
