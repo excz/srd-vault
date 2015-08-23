@@ -12,31 +12,53 @@
     };
   });
 
-  module.controller('DetailController', function($scope, $data) {
+  module.controller('DetailController', function($scope, $http, $data) {
     $scope.item = $data.selectedItem;
 
     $scope.srd = {
       "constant": [
         {
-          "Quantity ": "{220} lattice spacing of silicon",
-          "Value": "192.015 5714 e-12",
-          "Uncertainty": "0.000 0032 e-12",
-          "Unit": "m"
-        },
-        {
-          "Quantity ": "alpha particle-electron mass ratio",
-          "Value": "7294.299 541 36",
-          "Uncertainty": "0.000 000 24",
-          "Unit": ""
-        },
-        {
-          "Quantity ": "alpha particle mass",
-          "Value": "6.644 657 230 e-27",
-          "Uncertainty": "0.000 000 082 e-27",
-          "Unit": "kg"
+          "Quantity ": "Retrieving data ... ",
+          "Value": "0.0",
+          "Uncertainty": "0.0",
+          "Unit": "?"
         }
       ]
     };
+
+    var url = 'data/srd121_allascii_2014.json';
+
+    // Retrieve the data
+    $http.get(url).then(
+      // Success
+      function(response) {
+        $scope.srd = response.data;
+      },
+      // Error
+      function (response) {
+        var errorMessage = 'Could not get data ' + url;
+        setTimeout(
+          function() {
+            ons.notification.alert({
+              title: 'Oops!',
+              message: errorMessage
+            });
+          },
+          100
+        );
+
+        $scope.srd = {
+          "constant": [
+            {
+              "Quantity ": errorMessage,
+              "Value": "0.0",
+              "Uncertainty": "0.0",
+              "Unit": "?"
+            }
+          ]
+        };
+      }
+    );
 
   });
 
