@@ -34,16 +34,17 @@
     </ons-list>
 
     <ons-list style="margin-top: 10px">
-        <ons-list-item class="item" ng-repeat="row in srd.constant">
+
+        <!-- Here are the data listings -->
+        <ons-list-item class="item" ng-repeat="row in srd['ionization energies data']">
             <header>
-                <span class="item-title">{{row['Quantity ']}}</span>
+                <span class="item-title">{{row['Element Name']}}</span>
             </header>
-            <p class="item-desc">
-              {{row['Value']}}
-              <strong>&plusmn;</strong> {{row.Uncertainty}}
-              <strong><em>{{row.Unit}}</em></strong>
+            <p class="item-desc" ng-repeat="(key, value) in row">
+              <strong>{{ key }}</strong>: {{ value }}
             </p>
         </ons-list-item>
+
     </ons-list>
 
     <br>

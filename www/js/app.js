@@ -13,7 +13,8 @@
   });
 
   module.controller('DetailController', function($scope, $http, $data) {
-    $scope.item = $data.selectedItem;
+    var selected = $data.selectedItem;
+    $scope.item = selected;
 
     $scope.srd = {
       "constant": [
@@ -26,7 +27,7 @@
       ]
     };
 
-    var url = 'data/srd121_allascii_2014.json';
+    var url = 'data/' + selected.url;
 
     // Retrieve the data
     $http.get(url).then(
@@ -66,9 +67,18 @@
     $scope.items = $data.items;
 
     $scope.showDetail = function(index) {
+
       var selectedItem = $data.items[index];
       $data.selectedItem = selectedItem;
-      $scope.navi.pushPage('srd/121.html', {title : selectedItem.title});
+
+      var templateUrl = 'srd/' + selectedItem.srd + '.html';
+      $scope.navi.pushPage(
+        templateUrl,
+        {
+          title : selectedItem.title
+        }
+      );
+
     };
   });
 
@@ -77,24 +87,18 @@
 
       data.items = [
           {
-              title: 'CODATA Fundamental Physical Constants',
-              label: 'SRD 121',
-              desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+            srd: 121,
+            url: 'srd121_allascii_2014.json',
+            title: 'CODATA Fundamental Physical Constants',
+            label: 'SRD 121',
+            desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
           },
           {
-              title: 'Ground Levels and Ionization Energies for the Neutral Atoms',
-              label: 'SRD 111',
-              desc: 'Ut enim ad minim veniam.'
-          },
-          {
-              title: 'Yet Another Item Title',
-              label: '1day ago',
-              desc: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'
-          },
-          {
-              title: 'Yet Another Item Title',
-              label: '1day ago',
-              desc: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'
+            srd: 111,
+            url: 'srd111_NIST_Atomic_Ionization_Energies_Output.json',
+            title: 'Ground Levels and Ionization Energies for the Neutral Atoms',
+            label: 'SRD 111',
+            desc: 'Ut enim ad minim veniam.'
           }
       ];
 
