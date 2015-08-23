@@ -1,0 +1,12 @@
+div.srd-thumb {
+  /*width: 250px;*/
+  /*height: 100px;*/
+  line-height: 50px;
+  text-align: center;
+}
+
+span.srd-thumb {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+}
