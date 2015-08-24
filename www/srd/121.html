@@ -6,6 +6,7 @@
     </ons-toolbar>
 
     <ons-list modifier="inset" style="margin-top: 10px">
+
         <ons-list-item class="item">
             <ons-row>
                 <ons-col width="60px">
@@ -27,19 +28,22 @@
             </ons-row>
         </ons-list-item>
 
-        <ons-list-item modifier="chevron" ng-click="doSomething()">
-            <ons-icon icon="ion-chatboxes" fixed-width="true" style="color: #ccc"></ons-icon>
-            Add a note
-        </ons-list-item>
+        <!-- Search -->
+        <input
+          type="search"
+          ng-model="searchValue"
+          class="search-input"
+          placeholder="Search ...">
+
+        <p> {{ searchValue }} </p>
     </ons-list>
 
     <ons-list style="margin-top: 10px">
         <ons-list-item class="item" ng-repeat="row in srd.constant">
-            <header>
+            <ons-icon class="pinned" icon="ion-pin" fixed-width="true"></ons-icon>
                 <span class="item-title">{{row['Quantity ']}}</span>
-            </header>
             <p class="item-desc">
-              {{row['Value']}}
+              {{ row['Value'] }}
               <strong>&plusmn;</strong> {{row.Uncertainty}}
               <strong><em>{{row.Unit}}</em></strong>
             </p>

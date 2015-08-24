@@ -10,6 +10,9 @@
         ons.notification.alert({ message: 'tapped' });
       }, 100);
     };
+
+    $scope.searchValue = '';
+
   });
 
   module.controller('DetailController', function($scope, $http, $data) {

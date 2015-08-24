@@ -25,39 +25,6 @@
 
     <title>SRD Vault</title>
 
-    <style>
-        .item {
-            padding: 10px;
-            line-height: 1;
-        }
-
-        .item-thum {
-            background-color: #ccc;
-            width: 50px;
-            height: 50px;
-            border-radius: 4px;
-        }
-
-        .item-title {
-            font-size: 15px;
-            font-weight: 500;
-        }
-
-        .item-desc {
-            font-size: 14px;
-            color: #666;
-            line-height: 1.3;
-            margin: 4px 0 0 0;
-            padding: 0 30px 0 0;
-        }
-
-        .item-label {
-            font-size: 12px;
-            color: #999;
-            float: right;
-        }
-    </style>
-
 </head>
 
 <body ng-controller="AppController">
@@ -69,7 +36,7 @@
     <ons-navigator var="navi">
         <ons-page>
             <ons-toolbar>
-                <div class="center">Datasets</div>
+                <div class="center">Standard Reference Data</div>
             </ons-toolbar>
 
             <ons-list ng-controller="MasterController">
@@ -95,13 +62,17 @@
                 </ons-list-item>
             </ons-list>
 
+            <button class="button button--large button--light">+ new data set</button>
 
-            <div>
-              *This product uses data provided by the National Institute of Standards and Technology (NIST) but is not endorsed or certified by NIST.
+            <div class="center">
+              <span style="font-size: .8em">
+                &nbsp;
+                *This product uses data provided by the National Institute of Standards and Technology (NIST) but is not endorsed or certified by NIST.
+                &nbsp;
+              </span>
             </div>
         </ons-page>
     </ons-navigator>
-
 
 </body>
 

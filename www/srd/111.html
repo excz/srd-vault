@@ -27,10 +27,14 @@
             </ons-row>
         </ons-list-item>
 
-        <ons-list-item modifier="chevron" ng-click="doSomething()">
-            <ons-icon icon="ion-chatboxes" fixed-width="true" style="color: #ccc"></ons-icon>
-            Add a note
-        </ons-list-item>
+        <input
+          type="search"
+          ng-model="searchValue"
+          class="search-input"
+          placeholder="Search ...">
+
+        <p> {{ searchValue }} </p>
+
     </ons-list>
 
     <ons-list style="margin-top: 10px">
