@@ -3,6 +3,13 @@
     <ons-toolbar>
         <div class="left"><ons-back-button>Back</ons-back-button></div>
         <div class="center">Details</div>
+        <div class="right">
+          <button
+            ng-click="isSearchVisible = !isSearchVisible"
+            class="button button--quiet">
+            <ons-icon icon="ion-search" fixed-width="true"></ons-icon>
+          </button>
+        </div>
     </ons-toolbar>
 
     <ons-list modifier="inset" style="margin-top: 10px">
@@ -28,18 +35,26 @@
             </ons-row>
         </ons-list-item>
 
-        <!-- Search -->
+    </ons-list>
+
+
+    <ons-row
+      style="padding: .5em"
+      ng-if="isSearchVisible">
+
         <input
           type="search"
-          ng-model="searchValue"
           class="search-input"
+          ng-model="search.text"
           placeholder="Search ...">
 
         <p> {{ searchValue }} </p>
-    </ons-list>
+
+    </ons-row>
+
 
     <ons-list style="margin-top: 10px">
-        <ons-list-item class="item" ng-repeat="row in srd.constant">
+        <ons-list-item class="item" ng-repeat="row in srd.constant | filter_by_search:search.text:true">
             <ons-icon class="pinned" icon="ion-pin" fixed-width="true"></ons-icon>
                 <span class="item-title">{{row['Quantity ']}}</span>
             <p class="item-desc">

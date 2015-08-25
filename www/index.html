@@ -36,7 +36,17 @@
     <ons-navigator var="navi">
         <ons-page>
             <ons-toolbar>
-                <div class="center">Standard Reference Data</div>
+              <div class="center">Standard Reference Data</div>
+
+              <!-- Toggle search input -->
+              <div class="right">
+                <button
+                  ng-click="isSearchVisible = !isSearchVisible"
+                  class="button button--quiet">
+                  <ons-icon icon="ion-search" fixed-width="true"></ons-icon>
+                </button>
+              </div>
+
             </ons-toolbar>
 
             <ons-list ng-controller="MasterController">
@@ -63,14 +73,14 @@
             </ons-list>
 
             <button class="button button--large button--light">+ new data set</button>
-
-            <div class="center">
+            <br />
+            <ons-row>
               <span style="font-size: .8em">
                 &nbsp;
                 *This product uses data provided by the National Institute of Standards and Technology (NIST) but is not endorsed or certified by NIST.
                 &nbsp;
               </span>
-            </div>
+            </ons-row>
         </ons-page>
     </ons-navigator>
 

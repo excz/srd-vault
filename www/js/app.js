@@ -11,11 +11,15 @@
       }, 100);
     };
 
-    $scope.searchValue = '';
+    $scope.isSearchVisible = true;
 
+    // Model for user search
+    $scope.search = {};
+    $scope.search.text = '';
   });
 
   module.controller('DetailController', function($scope, $http, $data) {
+
     var selected = $data.selectedItem;
     $scope.item = selected;
 
@@ -69,6 +73,7 @@
   module.controller('MasterController', function($scope, $data) {
     $scope.items = $data.items;
 
+    // Selected a data set
     $scope.showDetail = function(index) {
 
       var selectedItem = $data.items[index];
@@ -92,20 +97,70 @@
           {
             srd: 121,
             url: 'srd121_allascii_2014.json',
-            title: 'CODATA Fundamental Physical Constants',
+            title: 'Fundamental Physical Constants',
             label: 'SRD 121',
-            desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+            desc: 'Short description here. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
           },
           {
             srd: 111,
             url: 'srd111_NIST_Atomic_Ionization_Energies_Output.json',
-            title: 'Ground Levels and Ionization Energies for the Neutral Atoms',
+            title: 'Ground Levels and Ionization Energies for Neutral Atoms',
             label: 'SRD 111',
-            desc: 'Ut enim ad minim veniam.'
+            desc: 'Short description here. Short description here. '
           }
       ];
 
       return data;
   });
+
+  // Filter data listings by search input
+  module.filter('filter_by_search', function () {
+    return function (input, searchValue, ignoreCase) {
+
+      var result = [];
+
+      if ('string' !== typeof searchValue || '' === searchValue) {
+        result = input;
+      }
+      else {
+
+        // create regular expression
+        var flags = 'g';
+        if (ignoreCase) {
+          flags += 'i';
+        }
+        var regex = new RegExp(searchValue, flags);
+
+        // Iterate through input and filter based on search
+        for (var i = 0; i < input.length; i++) {
+
+          var item = input[i];
+          var isMatch = false;
+
+          for (var key in item) {
+            if (item.hasOwnProperty(key)) {
+              var value = item[key];
+
+              // Find 1-N matches for the search string
+              var match = null;
+              if ('string' === typeof value) {
+                while ((match = regex.exec(value))) {
+                  isMatch = true;
+                  console.log( JSON.stringify(match) + '    ' + value );
+                }
+              }
+            }
+          }
+
+          if (isMatch) {
+            result.push(item);
+          }
+        }
+      }
+
+      return result;
+    };
+  });
+
 })();
 
