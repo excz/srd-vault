@@ -18,6 +18,7 @@
     $scope.search.text = '';
   });
 
+
   module.controller('DetailController', function($scope, $http, $data) {
 
     var selected = $data.selectedItem;
@@ -34,9 +35,15 @@
       ]
     };
 
-    var url = 'data/' + selected.url;
+    // Determine the directive template URL
+    $scope.getSrdTemplateUrl = function() {
+      var templateUrl = 'srd/' + selected.srd + '.html';
+      console.log('templateUrl=' + templateUrl)
+      return templateUrl;
+    };
 
-    // Retrieve the data
+    // Retrieve the dataset
+    var url = 'data/' + selected.url;
     $http.get(url).then(
       // Success
       function(response) {
@@ -70,6 +77,7 @@
 
   });
 
+
   module.controller('MasterController', function($scope, $data) {
     $scope.items = $data.items;
 
@@ -79,9 +87,8 @@
       var selectedItem = $data.items[index];
       $data.selectedItem = selectedItem;
 
-      var templateUrl = 'srd/' + selectedItem.srd + '.html';
       $scope.navi.pushPage(
-        templateUrl,
+        'detail.html',
         {
           title : selectedItem.title
         }
@@ -90,6 +97,8 @@
     };
   });
 
+
+  // Initial list of datasets
   module.factory('$data', function() {
       var data = {};
 
@@ -111,6 +120,19 @@
       ];
 
       return data;
+  });
+
+  // Customized template for each data set
+  module.directive('srdItem', function() {
+    return {
+      restrict: 'AE',
+      link: function(scope, element, attrs) {
+        scope.getSrdTemplateUrl = function() {
+          return 'srd/' + scope.item.srd + '.html';
+        }
+      },
+      template: '<div ng-include="getSrdTemplateUrl()"></div>'
+    };
   });
 
   // Filter data listings by search input
@@ -176,7 +198,6 @@
       return result;
     };
   });
-
 
   // Render raw HTML from a model
   module.filter("sanitize", ['$sce', function($sce) {

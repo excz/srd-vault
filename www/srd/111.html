@@ -1,56 +1,8 @@
-<ons-page ng-controller="DetailController">
-
-    <ons-toolbar>
-        <div class="left"><ons-back-button>Back</ons-back-button></div>
-        <div class="center">Details</div>
-    </ons-toolbar>
-
-    <ons-list modifier="inset" style="margin-top: 10px">
-        <ons-list-item class="item">
-            <ons-row>
-                <ons-col width="60px">
-                    <div class="item-thum srd-thumb">
-                      <span class="srd-thumb">
-                        SRD
-                        <br />
-                        {{ item.srd }}
-                      </span>
-                    </div>
-                </ons-col>
-                <ons-col>
-                    <header>
-                        <span class="item-title">{{item.title}}</span>
-                        <span class="item-label">{{item.label}}</span>
-                    </header>
-                    <p class="item-desc">{{item.desc}}</p>
-                </ons-col>
-            </ons-row>
-        </ons-list-item>
-
-        <input
-          type="search"
-          ng-model="searchValue"
-          class="search-input"
-          placeholder="Search ...">
-
-        <p> {{ searchValue }} </p>
-
-    </ons-list>
-
-    <ons-list style="margin-top: 10px">
-
-        <!-- Here are the data listings -->
-        <ons-list-item class="item" ng-repeat="row in srd['ionization energies data']">
-            <header>
-                <span class="item-title">{{row['Element Name']}}</span>
-            </header>
-            <p class="item-desc" ng-repeat="(key, value) in row">
-              <strong>{{ key }}</strong>: {{ value }}
-            </p>
-        </ons-list-item>
-
-    </ons-list>
-
-    <br>
-
-</ons-page>
+<ons-list-item class="item" ng-repeat="row in srd['ionization energies data']">
+  <header>
+    <span class="item-title">{{row['Element Name']}}</span>
+  </header>
+  <p class="item-desc" ng-repeat="(key, value) in row">
+    <strong>{{ key }}</strong>: {{ value }}
+  </p>
+</ons-list-item>

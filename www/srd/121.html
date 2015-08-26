@@ -1,73 +1,17 @@
-<ons-page ng-controller="DetailController">
+<ons-list-item class="item" ng-repeat="row in srd.constant | filter_by_search:search.text:true">
 
-    <ons-toolbar>
-        <div class="left"><ons-back-button>Back</ons-back-button></div>
-        <div class="center">Details</div>
-        <div class="right">
-          <button
-            ng-click="isSearchVisible = !isSearchVisible"
-            class="button button--quiet">
-            <ons-icon icon="ion-search" fixed-width="true"></ons-icon>
-          </button>
-        </div>
-    </ons-toolbar>
+  <!-- Pinned or not -->
+  <span class="item-title">
+    <ons-icon class="pinned" icon="ion-pin" fixed-width="true"></ons-icon>
+    <span ng-bind-html="row['Quantity '] | sanitize">
+    </span>
+  </span>
 
-    <ons-list modifier="inset" style="margin-top: 10px">
+  <!-- Data -->
+  <p class="item-desc">
+    {{ row['Value'] }}
+    <strong>&plusmn;</strong> {{row.Uncertainty}}
+    <strong><em>{{row.Unit}}</em></strong>
+  </p>
 
-        <ons-list-item class="item">
-            <ons-row>
-                <ons-col width="60px">
-                    <div class="item-thum srd-thumb">
-                      <span class="srd-thumb">
-                        SRD
-                        <br />
-                        {{ item.srd }}
-                      </span>
-                    </div>
-                </ons-col>
-                <ons-col>
-                    <header>
-                        <span class="item-title">{{item.title}}</span>
-                        <span class="item-label">{{item.label}}</span>
-                    </header>
-                    <p class="item-desc">{{item.desc}}</p>
-                </ons-col>
-            </ons-row>
-        </ons-list-item>
-
-    </ons-list>
-
-
-    <ons-row
-      style="padding: .5em"
-      ng-if="isSearchVisible">
-
-        <input
-          type="search"
-          class="search-input"
-          ng-model="search.text"
-          placeholder="Search ...">
-
-        <p> {{ searchValue }} </p>
-
-    </ons-row>
-
-
-    <ons-list style="margin-top: 10px">
-        <ons-list-item class="item" ng-repeat="row in srd.constant | filter_by_search:search.text:true">
-            <ons-icon class="pinned" icon="ion-pin" fixed-width="true"></ons-icon>
-              <span class="item-title">
-                <div ng-bind-html="row['Quantity '] | sanitize"></div>
-              </span>
-
-            <p class="item-desc">
-              {{ row['Value'] }}
-              <strong>&plusmn;</strong> {{row.Uncertainty}}
-              <strong><em>{{row.Unit}}</em></strong>
-            </p>
-        </ons-list-item>
-    </ons-list>
-
-    <br>
-
-</ons-page>
+</ons-list-item>

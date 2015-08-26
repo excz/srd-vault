@@ -1,14 +1,17 @@
-Onsen UI Quick Startup Guide
+# [SRD Vault](http://#) - Standard Reference Data for Scientific Learning and Research
 ====
 
-This document describes the minimum information required to develop an app using Onsen UI.
+SRD Vault is a simple and powerful mobile platform for viewing scientific data.  Whether you are a science student or a seasoned scientist, our interface strives to bring you the easiest way to get the right information for your work.
+
+This product uses data provided by the National Institute of Standards and Technology (NIST) but is not endorsed or certified by NIST.
 
 ## Requirement
 
  * Node.js - [Install Node.js](http://nodejs.org)
  * Cordova - Install by `npm install cordova`
+ * This repository code - `git clone https://github.com/sylvanknave/srd-vault`
 
-## Development Instructions
+## Development Setup
 
 1. Install dependencies
 
@@ -49,3 +52,8 @@ You should see running app on browser and you can start to develop your app with
  * `gulp serve` - Running the app for development.
  * `gulp build` - Build several files for project.
  * `gulp jshint` - Generate [jshint](https://github.com/jshint/jshint) report.
+
+
+## Notes
+
+- Cleaning up values when displayed, a la http://physics.nist.gov/cgi-bin/cuu/Value?d220sil
