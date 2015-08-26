@@ -135,25 +135,40 @@
         for (var i = 0; i < input.length; i++) {
 
           var item = input[i];
-          var isMatch = false;
+          var newItem = {};
 
+
+
+          // See if current item has a match
+          var isMatch = false;
           for (var key in item) {
             if (item.hasOwnProperty(key)) {
               var value = item[key];
+              var newValue = '';
+              var lastIndex = 0;
 
-              // Find 1-N matches for the search string
+              // Note there might be multiple matches
               var match = null;
               if ('string' === typeof value) {
                 while ((match = regex.exec(value))) {
                   isMatch = true;
-                  console.log( JSON.stringify(match) + '    ' + value );
+
+                  // Highlight the match
+                  newValue += value.substring(lastIndex, match.index) + '<span class="highlight">' + match[0] + '</span>';
+
+                  lastIndex = regex.lastIndex;
                 }
+
+                newItem[key] = newValue + value.substring(lastIndex);
+              }
+              else {
+                newItem[key] = value;
               }
             }
           }
 
           if (isMatch) {
-            result.push(item);
+            result.push(newItem);
           }
         }
       }
@@ -161,6 +176,15 @@
       return result;
     };
   });
+
+
+  // Render raw HTML from a model
+  module.filter("sanitize", ['$sce', function($sce) {
+    return function(htmlCode) {
+      return $sce.trustAsHtml(htmlCode);
+    }
+  }]);
+
 
 })();
 

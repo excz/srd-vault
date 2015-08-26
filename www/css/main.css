@@ -1,3 +1,4 @@
+/* List items */
 .item {
     padding: 10px;
     line-height: 1;
@@ -49,7 +50,12 @@ span.srd-thumb {
 }
 
 
-/*A pin icon is used for favorited data, e.g. Golden Ratio*/
+/* A pin icon is used for favorited data, e.g. Golden Ratio */
 .pinned {
   color: #883DAD;
+}
+
+/* Highlight text */
+.highlight {
+  background-color: yellow;
 }

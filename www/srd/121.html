@@ -56,7 +56,10 @@
     <ons-list style="margin-top: 10px">
         <ons-list-item class="item" ng-repeat="row in srd.constant | filter_by_search:search.text:true">
             <ons-icon class="pinned" icon="ion-pin" fixed-width="true"></ons-icon>
-                <span class="item-title">{{row['Quantity ']}}</span>
+              <span class="item-title">
+                <div ng-bind-html="row['Quantity '] | sanitize"></div>
+              </span>
+
             <p class="item-desc">
               {{ row['Value'] }}
               <strong>&plusmn;</strong> {{row.Uncertainty}}
