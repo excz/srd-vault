@@ -1,17 +1,21 @@
 <ons-list-item class="item" ng-repeat="row in srd.constant | filter_by_search:search.text:true">
 
-  <!-- Pinned or not -->
-  <span class="item-title">
-    <ons-icon class="pinned" icon="ion-pin" fixed-width="true"></ons-icon>
-    <span ng-bind-html="row['Quantity '] | sanitize">
-    </span>
-  </span>
+<!-- Pinned or not -->
+<span class="item-title">
+  <ons-icon class="pinned" icon="ion-pin" fixed-width="true"></ons-icon>
 
-  <!-- Data -->
-  <p class="item-desc">
-    {{ row['Value'] }}
-    <strong>&plusmn;</strong> {{row.Uncertainty}}
-    <strong><em>{{row.Unit}}</em></strong>
-  </p>
+  <!-- Data item title -->
+  <span ng-bind-html="row['Quantity '] | sanitize"></span>
+</span>
+
+<!-- Data item properties -->
+<p class="item-desc">
+  <span ng-bind-html="row.Value | sanitize"></span>
+  <strong>&plusmn;</strong>
+  <span ng-bind-html="row.Uncertainty | sanitize"></span>
+  <strong><em>
+    <span ng-bind-html="row.Unit | sanitize"></span>
+  </em></strong>
+</p>
 
 </ons-list-item>

@@ -1,6 +1,18 @@
 (function(){
   'use strict';
 
+  //TODO there's a bug in here, search '192' in SRD 121, it matches something random
+  // Escape a pattern string for constructing a regular expression
+  RegExp.escape= function(s) {
+    // http://stackoverflow.com/questions/3446170/escape-string-for-use-in-javascript-regex
+    return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+  };
+
+  function escapeRegexPattern(str) {
+    // http://stackoverflow.com/questions/3561493/is-there-a-regexp-escape-function-in-javascript/3561711#3561711
+    return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+  }
+
   // Initialize app
   var module = angular.module('app', ['onsen']);
 
@@ -33,13 +45,6 @@
           "Unit": "?"
         }
       ]
-    };
-
-    // Determine the directive template URL
-    $scope.getSrdTemplateUrl = function() {
-      var templateUrl = 'srd/' + selected.srd + '.html';
-      console.log('templateUrl=' + templateUrl)
-      return templateUrl;
     };
 
     // Retrieve the dataset
@@ -124,6 +129,7 @@
 
   // Customized template for each data set
   module.directive('srdItem', function() {
+    // http://stackoverflow.com/questions/21835471/angular-js-directive-dynamic-templateurl
     return {
       restrict: 'AE',
       link: function(scope, element, attrs) {
@@ -151,7 +157,7 @@
         if (ignoreCase) {
           flags += 'i';
         }
-        var regex = new RegExp(searchValue, flags);
+        var regex = new RegExp(escapeRegexPattern(searchValue), flags);
 
         // Iterate through input and filter based on search
         for (var i = 0; i < input.length; i++) {

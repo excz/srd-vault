@@ -1,4 +1,4 @@
-<ons-list-item class="item" ng-repeat="row in srd['ionization energies data']">
+<ons-list-item class="item" ng-repeat="row in srd['ionization energies data'] | filter_by_search:search.text:true">
   <header>
     <span class="item-title">{{row['Element Name']}}</span>
   </header>
