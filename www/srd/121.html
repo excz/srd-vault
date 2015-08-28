@@ -1,21 +1,23 @@
-<ons-list-item class="item" ng-repeat="row in srd.constant | filter_by_search:search.text:true">
+<div ng-controller="ItemController">
+  <ons-list-item class="item" ng-repeat="row in data">
 
-<!-- Pinned or not -->
-<span class="item-title">
-  <ons-icon class="pinned" icon="ion-pin" fixed-width="true"></ons-icon>
+    <!-- Pinned or not -->
+    <span class="item-title">
+      <ons-icon class="pinned" icon="ion-pin" fixed-width="true"></ons-icon>
 
-  <!-- Data item title -->
-  <span ng-bind-html="row['Quantity '] | sanitize"></span>
-</span>
+      <!-- Data item title -->
+      <span ng-bind-html="row['Quantity '] | sanitize"></span>
+    </span>
 
-<!-- Data item properties -->
-<p class="item-desc">
-  <span ng-bind-html="row.Value | sanitize"></span>
-  <strong>&plusmn;</strong>
-  <span ng-bind-html="row.Uncertainty | sanitize"></span>
-  <strong><em>
-    <span ng-bind-html="row.Unit | sanitize"></span>
-  </em></strong>
-</p>
+    <!-- Data item properties -->
+    <p class="item-desc">
+      <span ng-bind-html="row.Value | sanitize"></span>
+      <strong>&plusmn;</strong>
+      <span ng-bind-html="row.Uncertainty | sanitize"></span>
+      <strong><em>
+        <span ng-bind-html="row.Unit | sanitize"></span>
+      </em></strong>
+    </p>
 
-</ons-list-item>
+  </ons-list-item>
+</div>

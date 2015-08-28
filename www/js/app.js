@@ -1,7 +1,6 @@
 (function(){
   'use strict';
 
-  //TODO there's a bug in here, search '192' in SRD 121, it matches something random
   // Escape a pattern string for constructing a regular expression
   RegExp.escape= function(s) {
     // http://stackoverflow.com/questions/3446170/escape-string-for-use-in-javascript-regex
@@ -37,15 +36,19 @@
     $scope.item = selected;
 
     $scope.srd = {
-      "constant": [
-        {
-          "Quantity ": "Retrieving data ... ",
-          "Value": "0.0",
-          "Uncertainty": "0.0",
-          "Unit": "?"
-        }
-      ]
+      // "constant": [
+      //   {
+      //     "Quantity ": "???",
+      //     "Value": "0.0",
+      //     "Uncertainty": "0.0",
+      //     "Unit": "?"
+      //   }
+      // ]
     };
+
+    $scope.$watch('srd', function (value) {
+      //TODO
+    });
 
     // Retrieve the dataset
     var url = 'data/' + selected.url;
@@ -66,17 +69,6 @@
           },
           100
         );
-
-        $scope.srd = {
-          "constant": [
-            {
-              "Quantity ": errorMessage,
-              "Value": "0.0",
-              "Uncertainty": "0.0",
-              "Unit": "?"
-            }
-          ]
-        };
       }
     );
 
@@ -110,6 +102,7 @@
       data.items = [
           {
             srd: 121,
+            key: 'constant',
             url: 'srd121_allascii_2014.json',
             title: 'Fundamental Physical Constants',
             label: 'SRD 121',
@@ -117,6 +110,7 @@
           },
           {
             srd: 111,
+            key: 'ionization energies data',
             url: 'srd111_NIST_Atomic_Ionization_Energies_Output.json',
             title: 'Ground Levels and Ionization Energies for Neutral Atoms',
             label: 'SRD 111',
@@ -127,24 +121,61 @@
       return data;
   });
 
+  // Controller for listing data
+  module.controller('ItemController', function($scope, $data, $filter) {
+    $scope.data = $filter('stringify_values')($scope.srd[$scope.item.key]);
+    $scope.$watch('search', function (searchTerms) {
+      var filtered = $scope.srd[$scope.item.key];
+      filtered = $filter('stringify_values')(filtered);
+      $scope.data = $filter('filter_by_search')(filtered, searchTerms.text, true);
+    }, true);
+  });
+
   // Customized template for each data set
   module.directive('srdItem', function() {
     // http://stackoverflow.com/questions/21835471/angular-js-directive-dynamic-templateurl
     return {
       restrict: 'AE',
-      link: function(scope, element, attrs) {
+      link: function(scope, element, attributes) {
         scope.getSrdTemplateUrl = function() {
           return 'srd/' + scope.item.srd + '.html';
-        }
+        };
       },
       template: '<div ng-include="getSrdTemplateUrl()"></div>'
+    };
+  });
+
+
+  module.filter('stringify_values', function ($filter){
+    return function (input) {
+      var result = [];
+      if (Array.isArray(input)) {
+        for (var i = 0; i < input.length; i++) {
+          var element = input[i];
+          var newElement = {};
+          for (var key in element) {
+            if (element.hasOwnProperty(key)) {
+              var value = $filter('escapeHtml')(element[key]);
+
+              if ('string' === typeof value) {
+                newElement[key] = value;
+              }
+              else {
+                newElement[key] = JSON.stringify(value);
+              }
+            }
+          }
+          result.push(newElement);
+        }
+      }
+
+      return result;
     };
   });
 
   // Filter data listings by search input
   module.filter('filter_by_search', function () {
     return function (input, searchValue, ignoreCase) {
-
       var result = [];
 
       if ('string' !== typeof searchValue || '' === searchValue) {
@@ -165,8 +196,6 @@
           var item = input[i];
           var newItem = {};
 
-
-
           // See if current item has a match
           var isMatch = false;
           for (var key in item) {
@@ -177,21 +206,20 @@
 
               // Note there might be multiple matches
               var match = null;
-              if ('string' === typeof value) {
-                while ((match = regex.exec(value))) {
-                  isMatch = true;
-
-                  // Highlight the match
-                  newValue += value.substring(lastIndex, match.index) + '<span class="highlight">' + match[0] + '</span>';
-
-                  lastIndex = regex.lastIndex;
-                }
-
-                newItem[key] = newValue + value.substring(lastIndex);
+              if ('string' !== typeof value) {
+                value = JSON.stringify(value);
               }
-              else {
-                newItem[key] = value;
+
+              while ((match = regex.exec(value))) {
+                isMatch = true;
+
+                // Highlight the match
+                newValue += value.substring(lastIndex, match.index) + '<span class="highlight">' + match[0] + '</span>';
+
+                lastIndex = regex.lastIndex;
               }
+
+              newItem[key] = newValue + value.substring(lastIndex);
             }
           }
 
@@ -205,13 +233,30 @@
     };
   });
 
+  module.filter('escapeHtml', function () {
+    //http://stackoverflow.com/a/28537958/982802
+    var entityMap = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': '&quot;',
+      "'": '&#39;',
+      "/": '&#x2F;'
+    };
+
+    return function(str) {
+      return String(str).replace(/[&<>"'\/]/g, function (s) {
+        return entityMap[s];
+      });
+    };
+  });
+
   // Render raw HTML from a model
   module.filter("sanitize", ['$sce', function($sce) {
     return function(htmlCode) {
       return $sce.trustAsHtml(htmlCode);
-    }
+    };
   }]);
-
 
 })();
 

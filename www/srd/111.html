@@ -1,8 +1,14 @@
-<ons-list-item class="item" ng-repeat="row in srd['ionization energies data'] | filter_by_search:search.text:true">
-  <header>
-    <span class="item-title">{{row['Element Name']}}</span>
-  </header>
-  <p class="item-desc" ng-repeat="(key, value) in row">
-    <strong>{{ key }}</strong>: {{ value }}
-  </p>
-</ons-list-item>
+<div ng-controller="ItemController">
+  <ons-list-item class="item" ng-repeat="row in data">
+
+    <header>
+      <span class="item-title" ng-bind-html="row['Element Name'] | sanitize"></span>
+    </header>
+    <p class="item-desc" ng-repeat="(key, value) in row">
+      <strong>{{ key }}</strong>:
+
+      <span ng-bind-html="value | sanitize"></span>
+    </p>
+
+  </ons-list-item>
+</div>
