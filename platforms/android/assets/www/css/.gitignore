@@ -1,6 +1,0 @@
-# Ignore everything in this directory
-*
-# Except this file
-!.gitignore
-
-# Dunno why but `cordova emulate` wants this directory to exist.

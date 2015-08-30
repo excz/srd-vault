@@ -15,7 +15,12 @@
   // Initialize app
   var module = angular.module('app', ['onsen']);
 
-  module.controller('AppController', function($scope, $data) {
+  // Allow underscorejs to be used in controllers
+  module.factory('_', function() {
+      return window._; // make sure _ is loaded in index.html
+  });
+
+  module.controller('AppController', function($scope, $http, $data, _) {
     $scope.doSomething = function() {
       setTimeout(function() {
         ons.notification.alert({ message: 'tapped' });
@@ -25,53 +30,41 @@
     $scope.isSearchVisible = true;
 
     // Model for user search
-    $scope.search = {};
-    $scope.search.text = '';
+    $scope.search = {text: ''};
+
+    // Load datasets
+    _.each($data.items, function(item) {
+
+      // Retrieve the dataset
+      var url = 'data/' + item.fileName;
+      $http.get(url).then(
+        // Success
+        function(response) {
+          item.dataset = response.data;
+        },
+        // Error
+        function (response) {
+          var errorMessage = 'Could not retrieve the SRD ' + item.srd;
+          setTimeout(
+            function() {
+              ons.notification.alert({
+                title: 'Oops!',
+                message: errorMessage
+              });
+            },
+            100
+          );
+        }
+      );
+    });
+
   });
 
 
-  module.controller('DetailController', function($scope, $http, $data) {
+  module.controller('DetailController', function($scope, $data) {
 
     var selected = $data.selectedItem;
     $scope.item = selected;
-
-    $scope.srd = {
-      // "constant": [
-      //   {
-      //     "Quantity ": "???",
-      //     "Value": "0.0",
-      //     "Uncertainty": "0.0",
-      //     "Unit": "?"
-      //   }
-      // ]
-    };
-
-    $scope.$watch('srd', function (value) {
-      //TODO
-    });
-
-    // Retrieve the dataset
-    var url = 'data/' + selected.url;
-    $http.get(url).then(
-      // Success
-      function(response) {
-        $scope.srd = response.data;
-      },
-      // Error
-      function (response) {
-        var errorMessage = 'Could not get data ' + url;
-        setTimeout(
-          function() {
-            ons.notification.alert({
-              title: 'Oops!',
-              message: errorMessage
-            });
-          },
-          100
-        );
-      }
-    );
-
   });
 
 
@@ -84,13 +77,15 @@
       var selectedItem = $data.items[index];
       $data.selectedItem = selectedItem;
 
+      //TODO use a different one for each page
+      $scope.search = {text: ''};
+
       $scope.navi.pushPage(
         'detail.html',
         {
           title : selectedItem.title
         }
       );
-
     };
   });
 
@@ -103,7 +98,7 @@
           {
             srd: 121,
             key: 'constant',
-            url: 'srd121_allascii_2014.json',
+            fileName: 'srd121_allascii_2014.json',
             title: 'Fundamental Physical Constants',
             label: 'SRD 121',
             desc: 'Short description here. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
@@ -111,7 +106,7 @@
           {
             srd: 111,
             key: 'ionization energies data',
-            url: 'srd111_NIST_Atomic_Ionization_Energies_Output.json',
+            fileName: 'srd111_NIST_Atomic_Ionization_Energies_Output.json',
             title: 'Ground Levels and Ionization Energies for Neutral Atoms',
             label: 'SRD 111',
             desc: 'Short description here. Short description here. '
@@ -123,12 +118,17 @@
 
   // Controller for listing data
   module.controller('ItemController', function($scope, $data, $filter) {
-    $scope.data = $filter('stringify_values')($scope.srd[$scope.item.key]);
-    $scope.$watch('search', function (searchTerms) {
-      var filtered = $scope.srd[$scope.item.key];
-      filtered = $filter('stringify_values')(filtered);
-      $scope.data = $filter('filter_by_search')(filtered, searchTerms.text, true);
-    }, true);
+    $scope.data = $filter('stringify_values')($data.selectedItem.dataset[$scope.item.key]);
+
+    // Whenever search changes, re-filter our results based on it.
+    $scope.$watch('search',
+      function (searchTerms) {
+        var filtered = $data.selectedItem.dataset[$scope.item.key];
+        filtered = $filter('stringify_values')(filtered);
+        $scope.data = $filter('filter_by_search')(filtered, searchTerms.text, true);
+      },
+      true
+    );
   });
 
   // Customized template for each data set
@@ -177,7 +177,6 @@
   module.filter('filter_by_search', function () {
     return function (input, searchValue, ignoreCase) {
       var result = [];
-
       if ('string' !== typeof searchValue || '' === searchValue) {
         result = input;
       }
@@ -233,6 +232,7 @@
     };
   });
 
+  // Escape a string into raw HTML
   module.filter('escapeHtml', function () {
     //http://stackoverflow.com/a/28537958/982802
     var entityMap = {
