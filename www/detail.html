@@ -5,11 +5,7 @@
         <div class="left"><ons-back-button>Back</ons-back-button></div>
         <div class="center">Details</div>
         <div class="right">
-          <button
-            ng-click="isSearchVisible = !isSearchVisible"
-            class="button button--quiet">
-            <ons-icon icon="ion-search" fixed-width="true"></ons-icon>
-          </button>
+          <div search-toggle></div>
         </div>
     </ons-toolbar>
 
@@ -41,19 +37,7 @@
 
 
     <!-- Search field -->
-    <ons-row
-      style="padding: .5em"
-      ng-if="isSearchVisible">
-
-        <input
-          type="search"
-          class="search-input"
-          ng-model="search.text"
-          placeholder="Search ...">
-
-        <p> {{ searchValue }} </p>
-
-    </ons-row>
+    <div search-bar> </div>
 
     <!-- Data listings -->
     <ons-list style="margin-top: 10px">

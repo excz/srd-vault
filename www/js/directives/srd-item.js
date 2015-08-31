@@ -6,10 +6,10 @@
   angular.module('srdb.directives').directive('srdItem', function() {
     // http://stackoverflow.com/questions/21835471/angular-js-directive-dynamic-templateurl
     return {
-      restrict: 'AE',
+      restrict: 'A',
       link: function(scope, element, attributes) {
         scope.getSrdTemplateUrl = function() {
-          return 'srd/' + scope.item.srd + '.html';
+          return 'views/' + scope.item.srd + '.html';
         };
       },
       template: '<div ng-include="getSrdTemplateUrl()"></div>'

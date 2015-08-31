@@ -11,7 +11,8 @@
     $scope.isSearchVisible = true;
 
     // Model for user search
-    $scope.search = {text: ''};
+    $scope.defaultSearch = {text: ''}; // for resetting search text when pages switch
+    $scope.search = angular.copy($scope.defaultSearch);
 
     // Load datasets
     _.each($data.items, function(item) {

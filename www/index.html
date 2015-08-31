@@ -27,6 +27,8 @@
     <script src="js/controllers/master-controller.js"></script>
     <script src="js/controllers/app-controller.js"></script>
     <script src="js/directives/srd-item.js"></script>
+    <script src="js/directives/search-toggle.js"></script>
+    <script src="js/directives/search-bar.js"></script>
     <script src="js/factories/underscore-factory.js"></script>
     <script src="js/factories/data.js"></script>
     <script src="js/filters/escape-html.js"></script>
@@ -47,18 +49,17 @@
     <ons-navigator var="navi">
         <ons-page>
             <ons-toolbar>
-              <div class="center">Standard Reference Data</div>
+              <div class="center">Standard Reference Database</div>
 
               <!-- Toggle search input -->
               <div class="right">
-                <button
-                  ng-click="isSearchVisible = !isSearchVisible"
-                  class="button button--quiet">
-                  <ons-icon icon="ion-search" fixed-width="true"></ons-icon>
-                </button>
+                <div search-toggle></div>
               </div>
 
             </ons-toolbar>
+
+            <!-- Search bar -->
+            <div search-bar></div>
 
             <ons-list ng-controller="MasterController">
                 <ons-list-item modifier="chevron" class="item" ng-repeat="item in items" ng-click="showDetail($index)">

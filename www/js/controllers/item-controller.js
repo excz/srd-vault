@@ -5,6 +5,18 @@
   angular.module('srdb').controller(
     'ItemController',
     function($scope, $data, $filter) {
+
+      // Each item should have a page.
+      $scope.pushItemPage = function () {
+        //TODO
+        $scope.navi.pushPage(
+          '.html',
+          {
+            title : selectedItem.title
+          }
+        );
+      };
+
       $scope.data = $filter('stringify_values')($data.selectedItem.dataset[$scope.item.key]);
 
       // Whenever search changes, re-filter our results based on it.
@@ -16,6 +28,7 @@
         },
         true
       );
+
     }
   );
 

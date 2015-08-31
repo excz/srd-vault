@@ -11,7 +11,13 @@
       $data.selectedItem = selectedItem;
 
       //TODO use a different one for each page
-      $scope.search = {text: ''};
+        console.log("yes");
+        console.log($scope.defaultSearch)
+        console.log($scope.search)
+
+      if (!angular.equals($scope.defaultSearch, $scope.search)) {
+        angular.copy($scope.defaultSearch, $scope.search);
+      }
 
       $scope.navi.pushPage(
         'detail.html',
