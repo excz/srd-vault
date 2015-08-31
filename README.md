@@ -33,7 +33,8 @@ You should see running app on browser and you can start to develop your app with
     gulpfile.js   --> Gulp tasks definition
     www/          --> Asset files for app
       index.html  --> App entry point
-      js/
+      js/         --> Project Angular modules
+      css/        --> Project style sheets
       lib/
         angular/  --> AngularJS dependency
         onsen/
