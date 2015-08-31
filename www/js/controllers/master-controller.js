@@ -10,21 +10,19 @@
       var selectedItem = $data.items[index];
       $data.selectedItem = selectedItem;
 
-      //TODO use a different one for each page
-        console.log("yes");
-        console.log($scope.defaultSearch)
-        console.log($scope.search)
-
+      // Clear the search text
       if (!angular.equals($scope.defaultSearch, $scope.search)) {
         angular.copy($scope.defaultSearch, $scope.search);
       }
 
+      // New page
       $scope.navi.pushPage(
         'detail.html',
         {
           title : selectedItem.title
         }
       );
+
     };
   });
 

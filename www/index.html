@@ -62,6 +62,16 @@
             <div search-bar></div>
 
             <ons-list ng-controller="MasterController">
+                <!-- Educational section -->
+                <ons-list-header>Daily Trivia</ons-list-header>
+                <ons-list-item modifier="tappable" ng-click="showTrivia()">
+                  <a href='https://en.wikipedia.org/wiki/Fibonacci_number'>Fibonnaci numbers</a> (0, 1, 1, 2, 3, 5, 8, ...) appear frequently in nature, such as the number of petals in a sunflower.
+                  <br />
+
+                </ons-list-item>
+
+                <!-- SRD  -->
+                <ons-list-header>Datasets</ons-list-header>
                 <ons-list-item modifier="chevron" class="item" ng-repeat="item in items" ng-click="showDetail($index)">
                     <ons-row>
                         <ons-col width="60px">
