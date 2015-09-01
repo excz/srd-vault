@@ -23,26 +23,28 @@
   </ons-list>
 
   <!-- datasets -->
-  <ons-list modifier="inset" class="moat" ng-controller="MasterController">
+  <ons-list modifier="inset" class="moat" ng-controller="MainController">
 
     <ons-list-header>Datasets</ons-list-header>
-    <ons-list-item modifier="chevron" class="item" ng-repeat="item in items" ng-click="showDetail($index)">
+    <ons-list-item modifier="chevron" class="item" ng-repeat="dataset in datasets" ng-click="showDetail($index)">
       <ons-row>
+        <!-- Thumbnail -->
         <ons-col width="60px">
           <div class="item-thum srd-thumb">
             <span class="srd-thumb">
               SRD
               <br />
-              {{ item.srd }}
+              {{ dataset.srd }}
             </span>
           </div>
         </ons-col>
+
+        <!-- Title and description -->
         <ons-col>
           <header>
-              <span class="item-title">{{item.title}}</span>
-              <span class="item-label">{{item.label}}</span>
+              <span class="item-title">{{dataset.title}}</span>
           </header>
-          <p class="item-desc">{{item.desc}}</p>
+          <p class="item-desc">{{dataset.desc}}</p>
         </ons-col>
       </ons-row>
     </ons-list-item>

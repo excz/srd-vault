@@ -12,18 +12,23 @@
         $scope.navi.pushPage(
           '.html',
           {
-            title : selectedItem.title
+            title : selectedDataset.title
           }
         );
       };
 
-      $scope.data = $filter('stringify_values')($data.selectedItem.dataset[$scope.item.key]);
+      $scope.data = $filter('stringify_values')($scope.selectedDataset.raw[$scope.selectedDataset.key]);
 
       // Whenever search changes, re-filter our results based on it.
       $scope.$watch('search',
         function (searchTerms) {
-          var filtered = $data.selectedItem.dataset[$scope.item.key];
+          // Get current dataset
+          var filtered = $data.selectedDataset.raw[$scope.selectedDataset.key];
+
+          // Stringify values of each data item
           filtered = $filter('stringify_values')(filtered);
+
+          // Filter only data items matching our search
           $scope.data = $filter('filter_by_search')(filtered, searchTerms.text, true);
         },
         true

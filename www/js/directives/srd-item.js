@@ -9,7 +9,7 @@
       restrict: 'A',
       link: function(scope, element, attributes) {
         scope.getSrdTemplateUrl = function() {
-          return 'views/' + scope.item.srd + '.html';
+          return 'views/' + scope.selectedDataset.srd + '.html';
         };
       },
       template: '<div ng-include="getSrdTemplateUrl()"></div>'

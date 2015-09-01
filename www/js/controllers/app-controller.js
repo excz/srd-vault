@@ -15,18 +15,16 @@
     $scope.search = angular.copy($scope.defaultSearch);
 
     // Load datasets
-    _.each($data.items, function(item) {
+    _.each($data.datasets, function(dataset) {
 
-      // Retrieve the dataset
-      var url = 'data/' + item.fileName;
+      // Retrieve from localhost
+      var url = 'data/' + dataset.fileName;
       $http.get(url).then(
-        // Success
-        function(response) {
-          item.dataset = response.data;
+        function onSuccess(response) {
+          dataset.raw = response.data;
         },
-        // Error
-        function (response) {
-          var errorMessage = 'Could not retrieve the SRD ' + item.srd;
+        function onError(response) {
+          var errorMessage = 'Could not retrieve the SRD ' + dataset.srd;
           setTimeout(
             function() {
               ons.notification.alert({
