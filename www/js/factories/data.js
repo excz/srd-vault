@@ -12,7 +12,8 @@
             fileName: 'srd121_allascii_2014.json',
             title: 'Fundamental Physical Constants',
             label: 'SRD 121',
-            desc: 'Short description here. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+            desc: 'Short description here. Lorem ipsum dolor sit amet',
+            keywords: ['physics','fundamental','constants']
           },
           {
             srd: 111,
@@ -20,7 +21,8 @@
             fileName: 'srd111_NIST_Atomic_Ionization_Energies_Output.json',
             title: 'Ground Levels and Ionization Energies for Neutral Atoms',
             label: 'SRD 111',
-            desc: 'Short description here. Short description here. '
+            desc: 'Short description here. Short description here. ',
+            keywords: ['ion','elements','energy']
           }
       ];
 
