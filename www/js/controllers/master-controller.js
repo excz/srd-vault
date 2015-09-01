@@ -17,7 +17,7 @@
 
       // New page
       $scope.navi.pushPage(
-        'detail.html',
+        'views/detail.html',
         {
           title : selectedItem.title
         }

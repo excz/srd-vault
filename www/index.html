@@ -46,71 +46,8 @@
     <script src="scripts/index.js"></script>
     <!-- -->
 
-    <ons-navigator var="navi">
-        <ons-page>
-            <ons-toolbar>
-              <div class="center">Standard Reference Database</div>
+    <ons-navigator var="navi" page="views/main.html">
 
-              <!-- Toggle search input -->
-              <div class="right">
-                <div search-toggle></div>
-              </div>
-
-            </ons-toolbar>
-
-            <!-- Search bar -->
-            <div search-bar></div>
-
-            <!-- Educational section -->
-            <ons-list modifier="inset" class="moat">
-                <ons-list-header>Daily Trivia</ons-list-header>
-                <ons-list-item modifier="tappable" ng-click="showTrivia()">
-                  <a href='https://en.wikipedia.org/wiki/Fibonacci_number'>Fibonnaci numbers</a> (0, 1, 1, 2, 3, 5, 8, ...) appear frequently in nature, such as the number of petals in a sunflower.
-                  <br />
-
-                </ons-list-item>
-            </ons-list>
-
-            <!-- datasets -->
-            <ons-list modifier="inset" class="moat" ng-controller="MasterController">
-
-              <ons-list-header>Datasets</ons-list-header>
-              <ons-list-item modifier="chevron" class="item" ng-repeat="item in items" ng-click="showDetail($index)">
-                  <ons-row>
-                      <ons-col width="60px">
-                          <div class="item-thum srd-thumb">
-                            <span class="srd-thumb">
-                              SRD
-                              <br />
-                              {{ item.srd }}
-                            </span>
-                          </div>
-                      </ons-col>
-                      <ons-col>
-                          <header>
-                              <span class="item-title">{{item.title}}</span>
-                              <span class="item-label">{{item.label}}</span>
-                          </header>
-                          <p class="item-desc">{{item.desc}}</p>
-                      </ons-col>
-                  </ons-row>
-              </ons-list-item>
-
-              <ons-list-item modifier="chevron" class="item">
-                <button class="button button--large--quiet">+ new dataset</button>
-              </ons-list-item>
-
-            </ons-list>
-
-            <br />
-            <ons-row>
-              <span style="font-size: .6em; text-align: center">
-                &nbsp;
-                *This product uses data provided by the National Institute of Standards and Technology (NIST) but is not endorsed or certified by NIST.
-                &nbsp;
-              </span>
-            </ons-row>
-        </ons-page>
     </ons-navigator>
 
 
