@@ -13,6 +13,10 @@
       "name": "meter",
       "symbol": "m",
       "etc": "..."
+    },
+    {
+      "name": "atom"
+    }
     }
   ]
 }
