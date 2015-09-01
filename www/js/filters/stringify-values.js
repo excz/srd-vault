@@ -20,12 +20,12 @@
               if ('string' === typeof value) {
                 newElement[key] = value;
               }
-              else if (Array.isArray(value)) {
-                // If the value is an array or object, then we should ignore it when displaying a lot more data
-                newElement[key] = '...';
-              }
+              // else if (Array.isArray(value)) {
+              //   // If the value is an array or object, then we should ignore it when displaying en masse
+              //   newElement[key] = '...';
+              // }
               else {
-                newElement[key] = JSON.stringify(value);
+                newElement[key] = JSON.stringify(value, null, 2);
               }
 
               value = $filter('escapeHtml')(value);
