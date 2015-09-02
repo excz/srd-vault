@@ -1,17 +1,10 @@
-<div
-  ng-if="isSearchVisible">
+<ons-row ng-hide="isSearchHidden">
 
-  <ons-row>
+  <input
+    type="search"
+    class="search-input"
+    ng-model="search.text"
+    placeholder="Search ...">
 
-    <input
-      type="search"
-      class="search-input"
-      ng-model="search.text"
-      placeholder="Search ...">
-
-    <p> {{ searchValue }} </p>
-
-  </ons-row>
-
-</div>
+</ons-row>
 
