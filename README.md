@@ -1,7 +1,7 @@
-# [SRD Vault](http://#) - Standard Reference Data for Scientific Learning and Research
+# [SRDb](http://srdb.io) - Scientific Reference Database
 ====
 
-SRD Vault is a simple and powerful mobile platform for viewing scientific data.  Whether you are a science student or a seasoned scientist, our interface strives to bring you the easiest way to get the right information for your work.
+SRDb is a simple and powerful mobile platform for viewing scientific data.  Whether you are a science student or a seasoned scientist, our interface strives to bring you the easiest way to get the right information for your work.
 
 This product uses data provided by the National Institute of Standards and Technology (NIST) but is not endorsed or certified by NIST.
 

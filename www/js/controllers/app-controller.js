@@ -18,7 +18,7 @@
     _.each($data.datasets, function(dataset) {
 
       // Retrieve from localhost
-      var url = 'data/' + dataset.fileName;
+      var url = 'data/srd' + dataset.srd + '/' + dataset.fileName;
       $http.get(url).then(
         function onSuccess(response) {
           dataset.raw = response.data;

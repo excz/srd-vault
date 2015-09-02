@@ -44,7 +44,7 @@
     float: right;
 }
 
-/*Centering the thumbnail to allow a 'SRD 123' label*/
+/*Centering the thumbnail to allow a 'SRD 123' text in front of a colored square */
 /*http://stackoverflow.com/questions/8865458/how-to-align-text-vertically-center-in-div-with-css*/
 div.srd-thumb {
   /*TODO use dynamic colors for each SRD*/
